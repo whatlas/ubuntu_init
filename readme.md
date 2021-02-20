@@ -1,4 +1,6 @@
-### 安装驱动
+#
+
+## 安装驱动
 
 ```shell
 
@@ -10,7 +12,7 @@ sudo chmod a+x NVIDIA-*
 sudo ./NVIDIA-* --no-opengl-files -a -s
 ```
 
-### 安装git及其他
+## 安装git及其他
 
 ```shell
 
@@ -20,14 +22,14 @@ sudo apt install git vim build-essential python3-pip python3-opencv openssh-serv
 
 ```
 
-### 安装python包
+## 安装python包
 
 ```shell
 
 pip3 install pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
 ```
 
-### 安装zsh，安装oh-my-zsh及插件
+## 安装zsh，安装oh-my-zsh及插件
 
 ```shell
 
@@ -44,6 +46,7 @@ init 6
 git clone https://github.com/ohmyzsh/ohmyzsh.git
 cd ohmyzsh/tools
 sh install.sh
+cd -
 rm -rf ohmyzsh
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -52,7 +55,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 gedit ~/.zshrc
 ```
 
-### 安装CUDA/CUDNN/TensorRT
+## 安装CUDA/CUDNN/TensorRT
 
 ```shell
 
@@ -70,20 +73,20 @@ sudo cp lib64/lib* /usr/local/cuda/lib64/
 sudo cp include/cudnn.h /usr/local/cuda/include/
 cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
 
-tar -zxvf tensort-***.tar.gz
+tar -zxvf tensorrt-***.tar.gz
 sudo echo "export LD_LIBRARY_PATH=/home/ecarx/Downloads/TensorRT-7.0.0.11/lib:$LD_LIBRARY_PATH" >> ~/.zshrc
 
-pip3 install tensort-**/python/tensorrt-***.whl
-pip3 install tensort-**/uff/uff-**.whl
-pip3 install tensort-**/graphsurgeon/graphsurgeon**.whl
+pip3 install tensorrt-**/python/tensorrt-***.whl
+pip3 install tensorrt-**/uff/uff-**.whl
+pip3 install tensorrt-**/graphsurgeon/graphsurgeon**.whl
 
 ```
 
-### 安装搜狗输入法
+## 安装搜狗输入法
 
-### 安装vscode
+## 安装vscode
 
-### 安装docker及nvidia-docker
+## 安装docker及nvidia-docker
 
 ```shell
 

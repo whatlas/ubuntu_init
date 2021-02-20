@@ -1,6 +1,6 @@
 ### 安装驱动
 
-```console
+```shell
 sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 sudo bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 sudo update-initramfs -u
@@ -11,7 +11,7 @@ sudo ./NVIDIA-* --no-opengl-files -a -s
 
 ### 安装git及其他
 
-```console
+```shell
 sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
 
 sudo apt install git vim build-essential python3-pip python3-opencv openssh-server unrar exfat-fuse 
@@ -20,13 +20,13 @@ sudo apt install git vim build-essential python3-pip python3-opencv openssh-serv
 
 ### 安装python包
 
-```console
+```shell
 pip3 install pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
 ```
 
 ### 安装zsh，安装oh-my-zsh及插件
 
-```console
+```shell
 sudo apt install zsh
 
 whereis zsh
@@ -50,7 +50,7 @@ gedit ~/.zshrc
 
 ### 安装CUDA/CUDNN/TensorRT
 
-```console
+```shell
 sudo chmod a+x ./cuda-10.2**.run
 sudo ./cuda-10.2**.run
 cat /usr/local/cuda/version.txt
@@ -80,7 +80,7 @@ pip3 install tensort-**/graphsurgeon/graphsurgeon**.whl
 
 ### 安装docker及nvidia-docker
 
-```console
+```shell
 curl https://get.docker.com | sh && sudo systemctl --now enable docker
 sudo usermod -aG docker $(whoami)
 

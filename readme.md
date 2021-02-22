@@ -18,7 +18,7 @@ sudo ./NVIDIA-* --no-opengl-files -a -s
 
 sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
 
-sudo apt install git vim build-essential python3-pip python3-opencv openssh-server unrar exfat-fuse 
+sudo apt install git vim build-essential python3-pip python3-opencv openssh-server unrar exfat-fuse htop terminator
 
 ```
 
@@ -101,4 +101,5 @@ sudo apt-get update
 sudo apt-get install -y nvidia-docker2
 sudo systemctl restart docker
 sudo docker run --rm --gpus all nvidia/cuda:10.2-base nvidia-smi
+
 ```

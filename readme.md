@@ -34,7 +34,7 @@ sudo make install
 
 ```bash
 
-pip3 install pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
+pip3 install jupyter pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
 ```
 
 ## 安装zsh，安装oh-my-zsh及插件

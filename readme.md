@@ -18,7 +18,7 @@ sudo ./NVIDIA-* --no-opengl-files -a -s
 
 sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
 
-sudo apt install git vim build-essential python3-pip python3-opencv openssh-server unrar exfat-fuse htop terminator libssl-dev qt5-default
+sudo apt install git vim build-essential python3-pip python3-opencv openssh-server unrar exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config
 
 ```
 ## 安裝cmake

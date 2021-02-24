@@ -16,9 +16,12 @@ sudo ./NVIDIA-* --no-opengl-files -a -s
 
 ```bash
 
-sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
+sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan 
+sudo apt-get remove gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
+sudo apt autoremove
 
-sudo apt install git vim build-essential python3-pip python3-opencv openssh-server unrar exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config
+sudo apt install -y git vim build-essential python3-pip python3-opencv openssh-server unrar 
+sudo apt install -y exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config
 
 ```
 ## 安裝cmake
@@ -34,7 +37,8 @@ sudo make install
 
 ```bash
 
-pip3 install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
+pip3 install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson
+pip3 install pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
 ```
 
 ## 安装zsh，安装oh-my-zsh及插件
@@ -46,8 +50,6 @@ sudo apt install zsh
 whereis zsh
 
 sudo usermod -s PATH-TO-ZSH $(whoami)
-
-sudo apt install powerline fonts-powerline
 
 init 6
 

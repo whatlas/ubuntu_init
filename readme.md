@@ -22,6 +22,8 @@ sudo apt autoremove
 
 sudo apt install -y git vim build-essential python3-pip python3-opencv openssh-server unrar 
 sudo apt install -y exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config
+sudo apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
+
 
 ```
 ## 安裝cmake

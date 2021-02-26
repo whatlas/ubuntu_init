@@ -20,7 +20,7 @@ sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empat
 sudo apt-get remove gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
 sudo apt autoremove
 
-sudo apt install -y git vim build-essential python3-pip python3-opencv openssh-server unrar 
+sudo apt install -y git vim build-essential python3-pip openssh-server unrar 
 sudo apt install -y exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config
 sudo apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
 
@@ -33,6 +33,20 @@ cd cmake
 ./bootstrap --parallel=16 --qt-gui --prefix=/usr/local/cmake
 make -j
 sudo make install
+```
+
+## 安装OpenCV（contrib）
+
+```bash
+wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.1.zip
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.1.zip
+unzip opencv.zip
+unzip opencv_contrib.zip
+cd opencv-4.5.1
+mkdir build
+cd build
+cmake-gui ..
+
 ```
 
 ## 安装python包

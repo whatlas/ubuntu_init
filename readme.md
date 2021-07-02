@@ -82,6 +82,13 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 gedit ~/.zshrc
 ```
 
+## 安装 cheatsheet.sh
+
+```bash
+curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh
+chmod +x /usr/local/bin/cht.sh
+```
+
 ## 安装CUDA/CUDNN/TensorRT
 
 ```bash

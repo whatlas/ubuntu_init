@@ -69,6 +69,7 @@ sudo apt install zsh
 whereis zsh
 
 sudo usermod -s PATH-TO-ZSH $(whoami)
+chsh -s /usr/bin/zsh
 
 init 6
 

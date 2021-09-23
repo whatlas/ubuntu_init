@@ -30,6 +30,7 @@ sudo apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev 
 ## 安裝cmake
 
 ```bash
+git clone https://github.com/Kitware/CMake.git
 cd cmake
 ./bootstrap --parallel=16 --qt-gui --prefix=/usr/local/cmake
 make -j

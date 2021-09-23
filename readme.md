@@ -59,6 +59,8 @@ cmake -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -
 pip3 install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson
 pip3 install pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
 ```
+使用 gitup 管理多个 git 项目:
+https://github.com/earwig/git-repo-updater
 
 ## 安装zsh，安装oh-my-zsh及插件
 

@@ -33,7 +33,7 @@ sudo apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev 
 git clone https://github.com/Kitware/CMake.git
 cd cmake
 ./bootstrap --parallel=16 --qt-gui --prefix=/usr/local/cmake
-make -j$(expr $(cat /proc/cpuinfo | grep "processor" | wc -l ) - 1)
+make -j$(expr `nproc` - 1)
 sudo make install
 ```
 
@@ -48,7 +48,7 @@ cd opencv-4.5.1
 mkdir build
 cd build
 cmake -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.5.1/modules/ -DWITH_CUDA=ON -DWITH_GSTREAMER=OFF -DWITH_WEBP=OFF ..
- make -j$(expr $(cat /proc/cpuinfo | grep "processor" | wc -l ) - 1)
+ make -j$(expr `nproc` - 1)
  sudo make install
 
 ```

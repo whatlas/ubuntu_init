@@ -57,9 +57,10 @@ cmake -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -
 
 ```bash
 
-pip3 install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson
-pip3 install pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
-pip3 install rich
+python3 -m pip install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson
+python3 -m pip install pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
+python3 -m pip install rich pretty_errors
+python3 -m pretty_errors
 ```
 使用 gitup 管理多个 git 项目:
 https://github.com/earwig/git-repo-updater

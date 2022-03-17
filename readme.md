@@ -16,15 +16,10 @@ sudo ./NVIDIA-* --no-opengl-files -a -s
 
 ```bash
 
-sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan 
-sudo apt-get remove gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
+sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
 sudo apt autoremove
 
-sudo apt install -y git vim build-essential python3-pip openssh-server unrar 
-sudo apt install -y tree
-sudo apt install -y exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config
-sudo apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
-
+sudo apt install -y git vim build-essential python3-pip openssh-server unrar tree exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
 
 ```
 ## 安裝cmake
@@ -57,9 +52,7 @@ cmake -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -
 
 ```bash
 
-python3 -m pip install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson
-python3 -m pip install pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm
-python3 -m pip install rich pretty_errors
+python3 -m pip install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm rich pretty_errors
 python3 -m pretty_errors
 ```
 使用 gitup 管理多个 git 项目:

@@ -128,6 +128,14 @@ pip3 install tensorrt-**/graphsurgeon/graphsurgeon**.whl
 
 ## 安装vscode
 
+## 安装额外字体
+
+Fira Code：
+https://github.com/tonsky/FiraCode/releases
+
+思源黑体：
+https://github.com/adobe-fonts/source-han-sans/releases
+
 ## 安装docker及nvidia-docker
 
 ```bash

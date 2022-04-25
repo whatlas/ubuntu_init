@@ -3,13 +3,15 @@
 ## 安装驱动
 
 ```bash
-
 sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 sudo bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 sudo update-initramfs -u
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:graphics-drivers/ppa -y
+sudo apt update
+ubuntu-drivers devices
+sudo ubuntu-drivers autoinstall
 sudo reboot
-sudo chmod a+x NVIDIA-*
-sudo ./NVIDIA-* --no-opengl-files -a -s
 ```
 
 ## 安装git及其他

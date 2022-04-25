@@ -119,7 +119,15 @@ pip3 install tensorrt-**/graphsurgeon/graphsurgeon**.whl
 
 ## 安装搜狗输入法
 
+```bash
+
+```
+
 ## 安装vscode
+
+```bash
+sudo snap install --classic code
+```
 
 ## 安装额外字体
 
@@ -144,6 +152,6 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 sudo apt-get update
 sudo apt-get install -y nvidia-docker2
 sudo systemctl restart docker
-sudo docker run --rm --gpus all nvidia/cuda:10.2-base nvidia-smi
+sudo docker run --rm --gpus all nvidia/cuda:11.6.2-devel-ubuntu20.04 nvidia-smi
 
 ```

@@ -35,17 +35,13 @@ sudo make install
 ## 安装OpenCV（contrib）
 
 ```bash
-wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.1.zip
-wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.1.zip
+wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.5.zip
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.5.zip
 unzip opencv.zip
 unzip opencv_contrib.zip
-cd opencv-4.5.1
-mkdir build
-cd build
-cmake -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.5.1/modules/ -DWITH_CUDA=ON -DWITH_GSTREAMER=OFF -DWITH_WEBP=OFF ..
-make -j`nproc`
-sudo make install
-
+cd opencv-4.5.5
+sudo cmake -S . -B build -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib-4.5.5/modules/ -DWITH_CUDA=ON -DWITH_GSTREAMER=OFF -DWITH_WEBP=OFF
+sudo cmake --build build --target install -j`nproc`
 ```
 
 ## 安装python包

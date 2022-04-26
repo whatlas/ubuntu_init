@@ -52,8 +52,13 @@ sudo cmake --build opencv-4.5.5/build --target install -j`nproc`
 python3 -m pip install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm rich pretty_errors
 python3 -m pretty_errors
 ```
-使用 gitup 管理多个 git 项目:
+### 使用 gitup 管理多个 git 项目:
+
 https://github.com/earwig/git-repo-updater
+
+```bash
+python3 -m pip install gitup
+```
 
 ## 安装zsh，安装oh-my-zsh及插件
 

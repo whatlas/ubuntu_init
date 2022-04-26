@@ -129,10 +129,12 @@ sudo snap install --classic code
 ## 安装额外字体
 
 Fira Code：
-wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+
+`wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip`
 
 思源黑体：
-wget https://github.com/adobe-fonts/source-han-sans/releases/download/2.004R/SourceHanSansCN.zip
+
+`wget https://github.com/adobe-fonts/source-han-sans/releases/download/2.004R/SourceHanSansCN.zip`
 
 ## 安装docker及nvidia-docker
 

@@ -95,27 +95,15 @@ chmod +x /usr/local/bin/cht.sh
 ## 安装CUDA/CUDNN/TensorRT
 
 ```bash
-
-sudo chmod a+x ./cuda-10.2**.run
-sudo ./cuda-10.2**.run
-cat /usr/local/cuda/version.txt
-
-sudo echo "export PATH=/usr/local/cuda/bin:$PATH" >> ~/.zshrc
-sudo echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH" >> ~/.zshrc
-source ~/.zshrc
-
-tar -zxvf cudnn-****.tgz
-cd cuda
-sudo cp lib64/lib* /usr/local/cuda/lib64/
-sudo cp include/cudnn.h /usr/local/cuda/include/
-cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
-
-tar -zxvf tensorrt-***.tar.gz
-sudo echo "export LD_LIBRARY_PATH=/home/ecarx/Downloads/TensorRT-7.0.0.11/lib:$LD_LIBRARY_PATH" >> ~/.zshrc
-
-pip3 install tensorrt-**/python/tensorrt-***.whl
-pip3 install tensorrt-**/uff/uff-**.whl
-pip3 install tensorrt-**/graphsurgeon/graphsurgeon**.whl
+VER=`lsb_release -r | awk '{print $2}' | awk -F. '{print $1$2}'`
+sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/cuda-ubuntu$VER.pin
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/7fa2af80.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/ /"
+sudo apt update 
+sudo apt-get install libnvinfer8 libnvonnxparsers8 libnvparsers8 libnvinfer-plugin8
+sudo apt-get install libnvinfer-dev libnvonnxparsers-dev libnvparsers-dev libnvinfer-plugin-dev
+python3 -m pip install numpy
+sudo apt-get install python3-libnvinfer
 
 ```
 

@@ -1,5 +1,11 @@
 #
 
+## 实现无密码sudo
+
+```bash
+echo "`whoami` ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/dont-prompt-$USER-for-sudo-password"
+```
+
 ## 安装驱动
 
 ```bash

@@ -6,12 +6,14 @@
 
 ```bash
 echo "`whoami` ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/dont-prompt-$USER-for-sudo-password"
+chmod 440 /etc/sudoers.d/dont-prompt-$USER-for-sudo-password
 ```
 
 ### 增加用户sudo权限
 
 ```bash
 echo "`whoami` ALL=(ALL) ALL" | sudo tee "/etc/sudoers.d/$USER-sudo"
+chmod 440 /etc/sudoers.d/$USER-sudo
 ```
 
 ## 安装驱动

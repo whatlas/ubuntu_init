@@ -30,6 +30,21 @@ sudo ubuntu-drivers autoinstall
 sudo reboot
 ```
 
+## 安装CUDA/CUDNN/TensorRT
+
+```bash
+VER=`lsb_release -r | awk '{print $2}' | awk -F. '{print $1$2}'`
+sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/cuda-ubuntu$VER.pin
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/7fa2af80.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/ /"
+sudo apt update 
+sudo apt-get install libnvinfer8 libnvonnxparsers8 libnvparsers8 libnvinfer-plugin8
+sudo apt-get install libnvinfer-dev libnvonnxparsers-dev libnvparsers-dev libnvinfer-plugin-dev
+python3 -m pip install numpy
+sudo apt-get install python3-libnvinfer
+
+```
+
 ## 安装git及其他
 
 ```bash
@@ -50,15 +65,15 @@ make -j`nproc`
 sudo make install
 ```
 
-## 安装OpenCV（contrib）
+## 安装OpenCV & OpenCV_contrib
 
 ```bash
-wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.5.zip
-wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.5.zip
+wget -O opencv.zip https://github.com/opencv/opencv/archive/4.6.0.zip
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.6.0.zip
 unzip opencv.zip
 unzip opencv_contrib.zip
-sudo cmake -S opencv-4.5.5 -B opencv-4.5.5/build -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.5.5/modules/ -DWITH_CUDA=ON -DWITH_GSTREAMER=OFF -DWITH_WEBP=OFF
-sudo cmake --build opencv-4.5.5/build --target install -j`nproc`
+sudo cmake -S opencv-4.6.0 -B opencv-4.6.0/build -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules/ -DWITH_CUDA=ON -DWITH_GSTREAMER=OFF -DWITH_WEBP=OFF
+sudo cmake --build opencv-4.6.0/build --target install -j`nproc`
 ```
 
 ## 安装python包
@@ -82,9 +97,7 @@ python3 -m pip install gitup
 
 sudo apt install zsh
 
-whereis zsh
-
-sudo usermod -s PATH-TO-ZSH $(whoami)
+sudo usermod -s /usr/bin/zsh $(whoami)
 chsh -s /usr/bin/zsh
 
 init 6
@@ -108,28 +121,9 @@ curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh
 chmod +x /usr/local/bin/cht.sh
 ```
 
-## 安装CUDA/CUDNN/TensorRT
 
-```bash
-VER=`lsb_release -r | awk '{print $2}' | awk -F. '{print $1$2}'`
-sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/cuda-ubuntu$VER.pin
-sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/7fa2af80.pub
-sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/ /"
-sudo apt update 
-sudo apt-get install libnvinfer8 libnvonnxparsers8 libnvparsers8 libnvinfer-plugin8
-sudo apt-get install libnvinfer-dev libnvonnxparsers-dev libnvparsers-dev libnvinfer-plugin-dev
-python3 -m pip install numpy
-sudo apt-get install python3-libnvinfer
 
-```
-
-## 安装搜狗输入法
-
-```bash
-
-```
-
-## 安装 vscode 和 edge 浏览器
+## 安装 VSCode 和 Edge 浏览器
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -146,11 +140,19 @@ sudo snap install --classic code
 
 Fira Code：
 
-`wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip`
+```bash
+wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+sudo unzip -j -d /usr/share/fonts/truetype Fira_Code_v6.2.zip \*\*.ttf
+sudo fc-cache -f -v
+```
 
 思源黑体：
 
-`wget https://github.com/adobe-fonts/source-han-sans/releases/download/2.004R/SourceHanSansCN.zip`
+```bash
+wget https://github.com/adobe-fonts/source-han-sans/releases/download/2.004R/SourceHanSansCN.zip
+sudo unzip -j -d /usr/share/fonts/opentype SourceHanSansCN.zip \*\*\*.otf
+sudo fc-cache -f -v
+```
 
 ## 安装docker及nvidia-docker
 

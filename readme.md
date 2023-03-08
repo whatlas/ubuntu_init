@@ -37,7 +37,7 @@ VER=`lsb_release -r | awk '{print $2}' | awk -F. '{print $1$2}'`
 sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/cuda-ubuntu$VER.pin
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/7fa2af80.pub
 sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$VER/x86_64/ /"
-sudo apt update 
+sudo apt update
 sudo apt-get install libnvinfer8 libnvonnxparsers8 libnvparsers8 libnvinfer-plugin8
 sudo apt-get install libnvinfer-dev libnvonnxparsers-dev libnvparsers-dev libnvinfer-plugin-dev
 python3 -m pip install numpy
@@ -49,7 +49,7 @@ sudo apt-get install python3-libnvinfer
 
 ```bash
 
-sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common 
+sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common
 sudo apt autoremove
 
 sudo apt install -y git vim build-essential python3-pip openssh-server unrar tree exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
@@ -114,15 +114,6 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 omz theme set ys
 ```
 
-## 安装 cheatsheet.sh
-
-```bash
-curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh
-chmod +x /usr/local/bin/cht.sh
-```
-
-
-
 ## 安装 VSCode 和 Edge 浏览器
 
 ```bash
@@ -133,7 +124,6 @@ echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://
 sudo apt update
 sudo apt install microsoft-edge-stable
 sudo snap install --classic code
-
 ```
 
 ## 安装额外字体

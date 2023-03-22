@@ -128,17 +128,13 @@ sudo snap install --classic code
 
 ## 安装额外字体
 
-Fira Code：
 
 ```bash
+# Fira Code：
 wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
 sudo unzip -j -d /usr/share/fonts/truetype Fira_Code_v6.2.zip \*\*.ttf
-sudo fc-cache -f -v
-```
 
-思源黑体：
-
-```bash
+# 思源黑体：
 wget https://github.com/adobe-fonts/source-han-sans/releases/download/2.004R/SourceHanSansCN.zip
 sudo unzip -j -d /usr/share/fonts/opentype SourceHanSansCN.zip \*\*\*.otf
 sudo fc-cache -f -v

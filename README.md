@@ -54,11 +54,6 @@ sudo apt autoremove
 
 sudo apt install -y git vim build-essential python3-pip openssh-server unrar tree exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
 
-sudo apt install -y fzf stow
-sudo apt install -y lua5.3
-
-curl -sS https://starship.rs/install.sh | sh
-
 ```
 ## 安裝cmake
 
@@ -77,7 +72,7 @@ wget -O opencv.zip https://github.com/opencv/opencv/archive/4.6.0.zip
 wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.6.0.zip
 unzip opencv.zip
 unzip opencv_contrib.zip
-sudo cmake -S opencv-4.6.0 -B opencv-4.6.0/build -DBUILD_EXAMPLES=OFF -DBUILD_JAVA=OFF -DBUILD_TESTS=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules/ -DWITH_CUDA=ON -DWITH_GSTREAMER=OFF -DWITH_WEBP=OFF
+sudo cmake -S opencv-4.6.0 -B opencv-4.6.0/build -DBUILD_JAVA=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules/ -DWITH_CUDA=ON
 sudo cmake --build opencv-4.6.0/build --target install -j`nproc`
 ```
 
@@ -106,6 +101,11 @@ sudo usermod -s /usr/bin/zsh $(whoami)
 chsh -s /usr/bin/zsh
 
 init 6
+
+sudo apt install -y fzf stow
+sudo apt install -y lua5.3
+
+curl -sS https://starship.rs/install.sh | sh
 
 git clone https://github.com/whatlas/ubuntu_init.git ~/ubuntu_init
 cd ~/ubuntu_init

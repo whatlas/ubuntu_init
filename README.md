@@ -54,6 +54,11 @@ sudo apt autoremove
 
 sudo apt install -y git vim build-essential python3-pip openssh-server unrar tree exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
 
+sudo apt install -y fzf stow
+sudo apt install -y lua5.3
+
+curl -sS https://starship.rs/install.sh | sh
+
 ```
 ## 安裝cmake
 
@@ -91,7 +96,7 @@ https://github.com/earwig/git-repo-updater
 python3 -m pip install gitup
 ```
 
-## 安装zsh，安装oh-my-zsh及插件
+## 安装zsh，使用stow进行配置
 
 ```bash
 
@@ -102,16 +107,11 @@ chsh -s /usr/bin/zsh
 
 init 6
 
-git clone https://github.com/ohmyzsh/ohmyzsh.git
-cd ohmyzsh/tools
-sh install.sh
-cd -
-rm -rf ohmyzsh
+git clone https://github.com/whatlas/ubuntu_init.git ~/ubuntu_init
+cd ~/ubuntu_init
+stow -vt ~ stow
+stow zsh
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-omz theme set ys
 ```
 
 ## 安装 VSCode 和 Edge 浏览器

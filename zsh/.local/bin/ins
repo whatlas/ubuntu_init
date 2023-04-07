@@ -1,0 +1,53 @@
+#!/bin/zsh
+
+set -e
+
+local OS=$(uname -s)
+tbi() {
+	echo $1 'in' $OS 'is to be implemented'
+}
+nosupport() {
+	echo $1 'is not supported'
+}
+
+local macOS="Darwin"
+local linux="Linux"
+
+local _tools=(
+	'bat'
+	'fd'
+	'fzf'
+	'gitui'
+	'gotools'
+	'lf'
+	'nvim'
+	'rg'
+	'stylua'
+	'tpm'
+)
+
+main() {
+	tool=$1
+
+	case $OS in
+		$macOS)
+			mkdir -p ~/Downloads/
+			cd ~/Downloads/
+			;;
+		$linux)
+			mkdir -p ~/downloads
+			cd ~/downloads
+			;;
+	esac
+
+	for _tool in $_tools; do
+		if [[ $_tool == $tool ]]; then
+			install_$_tool $tool
+			return
+		fi
+	done
+
+	nosupport $tool
+}
+
+main $@

@@ -1,57 +1,75 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[ ](bold white)$hostname$kubernetes$directory$git_branch$git_commit$git_state$git_status$docker_context$package$golang$helm$java$cmake$julia$kotlin$lua$nim$nodejs$python$ruby$rust$swift$terraform$aws$gcloud$azure $battery
+[ ❯ ](bold green)"""
+
 # Inserts a blank line between shell prompts
 add_newline = true
 command_timeout = 1000
 
 [directory]
-truncation_length = 0
+truncation_length = 7
+truncation_symbol = ".../"
 truncate_to_repo = false
 
 [git_branch]
-format = "[$branch]($style) "
-# format = "[$symbol$branch]($style) "
-
-[golang]
-format = "[$symbol()]($style)"
-disabled = true
+# format = "[$branch]($style) "
+format = "[$symbol$branch]($style) "
 
 [cmd_duration]
 format = "[$duration]($style) "
 min_time = 3_000
 
 [character]
-success_symbol = "[Δ](bold green)"
 error_symbol = "[✘](bold red)"
-vicmd_symbol = "[Ε](bold blue) "
-
-[username]
-style_user = "yellow bold"
-style_root = "black bold"
-format = "[$user@]($style)"
-disabled = false
 
 [hostname]
-ssh_only = true
-format =  "[$hostname](bold yellow) "
+ssh_only = false
+format = '[$hostname]($style) '
+style = "blue bold"
+trim_at = "."
 disabled = false
 
+[username]
+style_user = "blue bold"
+style_root = "red bold"
+format = "[$user]($style) "
+disabled = false
+show_always = true
+
+# [git_status]
+# format = '([\[$conflicted$deleted$renamed$modified$staged$untracked\]]($style))'
+# conflicted = '!'
+
 [git_status]
-format = '([\[$conflicted$deleted$renamed$modified$staged$untracked\]]($style))'
-conflicted = '!'
+ahead = "⇡🏎💨${count}"
+diverged = "⇕⇡😵${ahead_count}⇣${behind_count}"
+behind = "⇣😰${count}"
+conflicted = "🏳 "
+untracked = "🤷"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted ="🗑 "
 
 [package]
 disabled = true
 
-[gcloud]
-disabled = true
+[cmake]
+format = "[ $symbol($version )]($style)"
+symbol = "CMake "
 
-[aws]
-disabled = true
-
-[dotnet]
-disabled = true
-
-[lua]
-disabled = true
+[python]
+symbol = "Python "
 
 [docker_context]
 disabled = true
+
+# Clear visibility for exit codes
+[status]
+style = "bg:red"
+symbol = "💣 "
+format = '[\[$symbol$status\]]($style) '
+disabled = false

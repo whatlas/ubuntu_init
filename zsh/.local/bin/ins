@@ -17,27 +17,22 @@ local _tools=(
 	'bat'
 	'fd'
 	'fzf'
-	'gitui'
-	'gotools'
-	'lf'
 	'nvim'
 	'rg'
-	'stylua'
-	'tpm'
 )
 
 main() {
 	tool=$1
 
 	case $OS in
-		$macOS)
-			mkdir -p ~/Downloads/
-			cd ~/Downloads/
-			;;
-		$linux)
-			mkdir -p ~/downloads
-			cd ~/downloads
-			;;
+	$macOS)
+		mkdir -p ~/Downloads/
+		cd ~/Downloads/
+		;;
+	$linux)
+		mkdir -p ~/downloads
+		cd ~/downloads
+		;;
 	esac
 
 	for _tool in $_tools; do

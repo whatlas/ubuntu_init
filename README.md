@@ -68,27 +68,13 @@ sudo make install
 ## 安装OpenCV & OpenCV_contrib
 
 ```bash
-wget -O opencv.zip https://github.com/opencv/opencv/archive/4.6.0.zip
-wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.6.0.zip
-unzip opencv.zip
-unzip opencv_contrib.zip
-sudo cmake -S opencv-4.6.0 -B opencv-4.6.0/build -DBUILD_JAVA=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules/ -DWITH_CUDA=ON
-sudo cmake --build opencv-4.6.0/build --target install -j`nproc`
+make opencv
 ```
 
 ## 安装python包
 
 ```bash
-
-python3 -m pip install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm rich pretty_errors
-python3 -m pretty_errors
-```
-### 使用 gitup 管理多个 git 项目:
-
-https://github.com/earwig/git-repo-updater
-
-```bash
-python3 -m pip install gitup
+make python
 ```
 
 ## 安装zsh，使用stow进行配置
@@ -107,37 +93,21 @@ sudo apt install -y lua5.3
 
 curl -sS https://starship.rs/install.sh | sh
 
-git clone https://github.com/whatlas/ubuntu_init.git ~/ubuntu_init
-cd ~/ubuntu_init
-stow -vt ~ stow
-stow zsh
+make zsh
 
 ```
 
 ## 安装 VSCode 和 Edge 浏览器
 
 ```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt install apt-transport-https ca-certificates curl software-properties-common wget -y
-sudo wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft-edge.gpg
-echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main' | sudo tee /etc/apt/sources.list.d/microsoft-edge.list
-sudo apt update
-sudo apt install microsoft-edge-stable
-sudo snap install --classic code
+make microsoft
 ```
 
 ## 安装额外字体
 
 
 ```bash
-# Fira Code：
-wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
-sudo unzip -j -d /usr/share/fonts/truetype Fira_Code_v6.2.zip \*\*.ttf
-
-# 思源黑体：
-wget https://github.com/adobe-fonts/source-han-sans/releases/download/2.004R/SourceHanSansCN.zip
-sudo unzip -j -d /usr/share/fonts/opentype SourceHanSansCN.zip \*\*\*.otf
-sudo fc-cache -f -v
+make fonts
 ```
 
 ## 安装docker及nvidia-docker

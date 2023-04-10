@@ -9,7 +9,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 ## Colorize the ls output ##
-alias ls='ls --color=auto'
+alias ls="ls --color=yes --group-directories-first"
 
 ## Use a long listing format ##
 alias ll='ls -la'
@@ -20,6 +20,8 @@ alias l.='ls -d .* --color=auto'
 ## set some other defaults ##
 alias df='df -H'
 alias du='du -ch'
+# Find the 10 most heavy files in a folder
+alias hefi="du -hsx * | sort -rh | head -10"
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
@@ -61,6 +63,9 @@ alias pip='python3 -m pip'
 alias now='date +%s'
 alias sz="source $HOME/.zshrc"
 
+# VScode
+alias code='code-insiders'
+
 # do not delete / or prompt if deleting more than 3 files at a time #
 alias rm='rm -I --preserve-root'
 
@@ -78,21 +83,13 @@ alias chgrp='chgrp --preserve-root'
 
 # path
 _enabled_paths=(
-    "$HOME/.local/bin"                  # my own tools
-    "$HOME/code/go/bin"                 # go
-    "$HOME/.local/share/nvim/mason/bin" # nvim lsp servers/linters
-    "$HOME/code/gems/bin"               # gems
-    "$N_PREFIX/bin"                     # n
-    "$HOME/.cargo/bin"                  # rust
-    "$PYENV_ROOT/bin"                   # python
+    "$HOME/.local/bin" # my own tools
 
     "/usr/bin"
     "/usr/sbin"
     "/usr/local" # for go on macOS
     "/usr/local/bin"
     "/usr/local/sbin"
-
-    "/usr/local/opt/openjdk/bin" # macOS JDK
 
     "/usr/local/cuda/bin" # CUDA: Ubuntu/Debian
     "/opt/cuda/bin"       # CUDA: Arch

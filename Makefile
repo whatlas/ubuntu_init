@@ -18,7 +18,7 @@ starship:
 	@echo "Installing starship"
 	curl -fsSL https://starship.rs/install.sh | sh
 
-zsh: stow starship
+zsh: stow starship fonts
 	@echo "Initializing zsh"
 	stow zsh
 

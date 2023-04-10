@@ -9,10 +9,10 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 ## Colorize the ls output ##
-alias ls="ls --color=yes --group-directories-first"
+alias ls="ls --color=yes --group-directories-first -hFtr"
 
 ## Use a long listing format ##
-alias ll='ls -la'
+alias ll='ls -lA'
 
 ## Show hidden files ##
 alias l.='ls -d .* --color=auto'

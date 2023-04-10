@@ -1,5 +1,7 @@
 .PHONY := all
 
+all: stow scpell starship fonts zsh
+
 opencv:
 	@echo "Installing OpenCV"
 	wget -O opencv.zip https://github.com/opencv/opencv/archive/4.6.0.zip
@@ -9,6 +11,10 @@ opencv:
 	cmake -S opencv-4.6.0 -B opencv-4.6.0/build -DBUILD_JAVA=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules/ -DWITH_CUDA=ON
 	cmake --build opencv-4.6.0/build --target install -j`nproc`
 	rm -rf opencv.zip opencv_contrib.zip
+
+cspell:
+	@echo "adding custom cspell dictionary"
+	stow cspell
 
 stow:
 	@echo "Initializing stow"

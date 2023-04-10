@@ -35,8 +35,6 @@ dsize
 dtoh
 dtype
 dwconv
-ecarx
-Ecarxstor
 Eigen
 elementwise
 Fava
@@ -47,7 +45,6 @@ functional
 Geforce
 globalavgpool
 hconcat
-Hongda
 htod
 imread
 imwrite
@@ -68,7 +65,6 @@ memcpy
 mmcv
 mmseg
 mmsegmentation
-Nacos
 nbytes
 ndarray
 noscale
@@ -87,7 +83,6 @@ prod
 proto
 pycuda
 pytorch
-qingstor
 randn
 relu
 roadedge
@@ -99,7 +94,6 @@ softmax
 spdlog
 stack
 superpoint
-tangjian
 tensorrt
 topk
 torch
@@ -109,7 +103,6 @@ undistort
 vconcat
 vidsom
 visdom
-XPER
 yolo
 yololayer
 yolov

@@ -1,4 +1,3 @@
-.PHONY := all
 
 all: stow scpell starship fonts zsh
 
@@ -12,22 +11,27 @@ opencv:
 	cmake --build opencv-4.6.0/build --target install -j`nproc`
 	rm -rf opencv.zip opencv_contrib.zip
 
+.PHONY: cspell
 cspell:
 	@echo "adding custom cspell dictionary"
 	stow cspell
 
+.PHONY: stow
 stow:
 	@echo "Initializing stow"
 	stow -vt ~ stow
 
+.PHONY: starship
 starship:
 	@echo "Installing starship"
 	curl -fsSL https://starship.rs/install.sh | sh
 
+.PHONY: zsh
 zsh: stow starship fonts
 	@echo "Initializing zsh"
 	stow zsh
 
+.PHONY: fonts
 fonts: stow
 	@echo "Initializing fonts"
 	stow fonts

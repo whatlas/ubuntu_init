@@ -1,5 +1,5 @@
 
-all: stow scpell starship fonts zsh
+all: stow cspell starship fonts zsh
 
 opencv:
 	@echo "Installing OpenCV"

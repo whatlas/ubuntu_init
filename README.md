@@ -58,11 +58,7 @@ sudo apt install -y git vim build-essential python3-pip openssh-server unrar tre
 ## 安裝cmake
 
 ```bash
-git clone https://github.com/Kitware/CMake.git
-cd cmake
-./bootstrap --parallel=`nproc` --qt-gui --prefix=/usr/local/cmake
-make -j`nproc`
-sudo make install
+make cmake
 ```
 
 ## 安装OpenCV & OpenCV_contrib
@@ -90,8 +86,6 @@ init 6
 
 sudo apt install -y fzf stow
 sudo apt install -y lua5.3
-
-curl -sS https://starship.rs/install.sh | sh
 
 make zsh
 

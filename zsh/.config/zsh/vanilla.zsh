@@ -21,7 +21,7 @@ alias l.='ls -d .* --color=auto'
 alias df='df -H'
 alias du='du -ch'
 # Find the 10 most heavy files in a folder
-alias hefi="du -hsx * | sort -rh | head -10"
+alias hefi="du -hax --max-depth=1 | sort -rh | head -10"
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'

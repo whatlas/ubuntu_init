@@ -1,0 +1,16 @@
+[core]
+editor = code --wait
+[filter "lfs"]
+process = git-lfs filter-process
+required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+[color]
+ui = auto
+[fetch]
+prune = true
+[alias]
+st = status
+[user]
+name = WH
+username = wh

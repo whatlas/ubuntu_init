@@ -112,6 +112,7 @@ SAVEHIST=10000
 
 HISTFILE=$HOME/.zsh_history
 setopt append_history
+setopt autocd
 setopt share_history
 setopt long_list_jobs
 setopt hist_expire_dups_first

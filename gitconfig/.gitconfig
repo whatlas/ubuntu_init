@@ -6,9 +6,22 @@ required = true
 clean = git-lfs clean -- %f
 smudge = git-lfs smudge -- %f
 [color]
-ui = auto
+ui = true
+[color "diff-highlight"]
+oldNormal = red bold
+oldHighlight = white bold 52
+newNormal = green bold
+newHighlight = white bold 22
+[color "diff"]
+meta = black
+frag = blue bold
+commit = black bold
+old = red bold
+new = green bold
+whitespace = red reverse
 [fetch]
 prune = true
+pruneTags = true
 [alias]
 st = status
 [user]

@@ -1,0 +1,23 @@
+# useful python packages
+conan==1.55.0
+demjson
+gitup
+jsonpickle
+jupyter
+marshmallow
+netifaces
+notebook
+numpy
+pandas
+pretty_errors
+pycm
+pycuda
+pyquery
+rich
+scipy
+shapely
+split
+tabulate
+termcolor
+tqdm
+urlpath

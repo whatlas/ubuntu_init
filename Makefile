@@ -52,7 +52,7 @@ cmake:
 
 python:
 	@echo "installing python packages"
-	python3 -m pip install jupyter notebook pycuda numpy scipy termcolor jsonpickle demjson pandas shapely tqdm tabulate netifaces split urlpath pyquery marshmallow pycm rich pretty_errors gitup
+	python3 -m pip install -r requirements.txt
 	python3 -m pretty_errors
 
 microsoft:

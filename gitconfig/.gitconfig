@@ -24,6 +24,3 @@ prune = true
 pruneTags = true
 [alias]
 st = status
-[user]
-name = WH
-username = wh

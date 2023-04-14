@@ -1,4 +1,11 @@
 
+define install_if_not
+	@echo "Checking $(1)"
+	if [ ! -f "`which $(1)`" ]; then \
+	sudo apt install -y $(1); \
+	fi
+endef
+
 all: stow cspell starship fonts zsh gitconfig
 
 .PHONY: gitconfig
@@ -24,11 +31,9 @@ starship:
 .PHONY: zsh_dep
 zsh_dep:
 	@echo "Installing my zsh dependencies"
-	sudo apt install -y fzf stow
-	sudo apt install -y lua5.3
-	sudo apt install -y zsh
-	sudo usermod -s /usr/bin/zsh $(whoami)
-	chsh -s /usr/bin/zsh
+	@$(call install_if_not, fzf)
+	@$(call install_if_not, lua5.3)
+	@$(call install_if_not, zsh)
 
 .PHONY: zsh
 zsh: stow zsh_dep starship fonts
@@ -59,6 +64,7 @@ sys_pack:
 	@echo "Installing system packages"
 	sudo apt update && sudo apt upgrade -y
 	sudo apt install -y \
+	stow \
 	git \
 	vim \
 	build-essential \
@@ -93,3 +99,20 @@ microsoft:
 	sudo apt update
 	sudo apt install microsoft-edge-stable
 	sudo snap install --classic code-insiders
+
+.PHONY: docker
+docker:
+	@echo "Installing docker"
+	curl https://get.docker.com | sh && sudo systemctl --now enable docker
+	sudo usermod -aG docker $(whoami)
+	newgrp docker
+
+	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+	&& curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
+	&& curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+	sudo apt-get update
+	sudo apt-get install -y nvidia-docker2
+	sudo systemctl restart docker
+	sudo docker run --rm --gpus all nvidia/cuda:11.6.2-devel-ubuntu20.04 nvidia-smi
+

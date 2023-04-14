@@ -49,10 +49,7 @@ sudo apt-get install python3-libnvinfer
 
 ```bash
 
-sudo apt-get remove thunderbird totem totem-common totem-plugins rhythmbox empathy brasero simple-scan gnome-majongg aisleriot gnome-mines cheese transmission-common gnome-sudoku onboard deja-dup libreoffice-common
-sudo apt autoremove
-
-sudo apt install -y git vim build-essential python3-pip openssh-server unrar tree exfat-fuse htop terminator libssl-dev qt5-default zlib1g-dev pkg-config libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev libdc1394-22-dev libeigen3-dev libgtk-3-dev libvtk7-qt-dev
+make sys_pack
 
 ```
 ## 安裝cmake

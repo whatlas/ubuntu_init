@@ -1,16 +1,6 @@
 
 all: stow cspell starship fonts zsh gitconfig
 
-opencv:
-	@echo "Installing OpenCV"
-	wget -O opencv.zip https://github.com/opencv/opencv/archive/4.6.0.zip
-	wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.6.0.zip
-	unzip opencv.zip
-	unzip opencv_contrib.zip
-	cmake -S opencv-4.6.0 -B opencv-4.6.0/build -DBUILD_JAVA=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/opencv/ -DENABLE_CXX11=ON  -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=opencv_contrib-4.6.0/modules/ -DWITH_CUDA=ON
-	cmake --build opencv-4.6.0/build --target install -j`nproc`
-	rm -rf opencv.zip opencv_contrib.zip
-
 .PHONY: gitconfig
 gitconfig: stow
 	@echo "Initializing gitconfig"
@@ -31,8 +21,17 @@ starship:
 	@echo "Installing starship"
 	curl -fsSL https://starship.rs/install.sh | sh
 
+.PHONY: zsh_dep
+zsh_dep:
+	@echo "Installing my zsh dependencies"
+	sudo apt install -y fzf stow
+	sudo apt install -y lua5.3
+	sudo apt install -y zsh
+	sudo usermod -s /usr/bin/zsh $(whoami)
+	chsh -s /usr/bin/zsh
+
 .PHONY: zsh
-zsh: stow starship fonts
+zsh: stow zsh_dep starship fonts
 	@echo "Initializing zsh"
 	stow zsh
 
@@ -54,6 +53,36 @@ python:
 	@echo "installing python packages"
 	python3 -m pip install -r requirements.txt
 	python3 -m pretty_errors
+
+.PHONY: sys_pack
+sys_pack:
+	@echo "Installing system packages"
+	sudo apt update && sudo apt upgrade -y
+	sudo apt install -y \
+	git \
+	vim \
+	build-essential \
+	python3-pip \
+	openssh-server \
+	unrar \
+	tree \
+	exfat-fuse \
+	htop \
+	libssl-dev \
+	qt5-default \
+	zlib1g-dev \
+	pkg-config \
+	libavcodec-dev \
+	libavformat-dev \
+	libavutil-dev \
+	libswscale-dev \
+	libavresample-dev \
+	libdc1394-22-dev \
+	libeigen3-dev \
+	libgtk-3-dev \
+	libvtk7-qt-dev
+	sudo apt autoclean
+	sudo apt autoremove
 
 microsoft:
 	@echo "installing Microsoft Edge and VSCode"

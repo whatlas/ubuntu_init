@@ -64,7 +64,8 @@ make cmake
 ## 安装OpenCV & OpenCV_contrib
 
 ```bash
-make opencv
+make zsh
+install_opencv 4.6.0
 ```
 
 ## 安装python包
@@ -77,17 +78,8 @@ make python
 
 ```bash
 
-sudo apt install zsh
-
-sudo usermod -s /usr/bin/zsh $(whoami)
-chsh -s /usr/bin/zsh
-
-init 6
-
-sudo apt install -y fzf stow
-sudo apt install -y lua5.3
-
 make zsh
+init 6
 
 ```
 

@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+# setpx
+set -e -o pipefail
+
+mkdir -p /tmp/opencv
+
+finally() {
+	local last_status=$?
+	trap "" EXIT
+	echo "cleaning file"
+	rm -fr /tmp/opencv
+	exit ${last_status}
+}
+
+trap finally EXIT
+
+echo "Installing OpenCV"
+
+script=$(basename ${BASH_SOURCE:-$0})
+usage="FORMAT: ${script} <version>"
+version=${1:?"undefined 'version', $usage"}
+shift
+
+wget -O /tmp/opencv/opencv.zip https://github.com/opencv/opencv/archive/${version}.zip
+wget -O /tmp/opencv/opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/${version}.zip
+
+unzip -d /tmp/opencv /tmp/opencv/opencv.zip
+unzip -d /tmp/opencv /tmp/opencv/opencv_contrib.zip
+cmake -S /tmp/opencv/opencv-${version} -B /tmp/opencv/opencv-${version}/build -DBUILD_JAVA=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.opencv/ -DENABLE_CXX11=ON -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=/tmp/opencv/opencv_contrib-${version}/modules/ -DWITH_CUDA=ON
+cmake --build /tmp/opencv/opencv-${version}/build --target install -j$(nproc)

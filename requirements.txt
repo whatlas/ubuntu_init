@@ -1,6 +1,5 @@
 # useful python packages
 conan==1.55.0
-demjson
 gitup
 jsonpickle
 jupyter
@@ -11,7 +10,6 @@ numpy
 pandas
 pretty_errors
 pycm
-pycuda
 pyquery
 rich
 scipy

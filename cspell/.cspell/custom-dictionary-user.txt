@@ -10,6 +10,7 @@ bgrdata
 bifpn
 bisenet
 calib
+Cascadia
 cbrc
 CDLL
 Ckey
@@ -38,6 +39,7 @@ dwconv
 Eigen
 elementwise
 Fava
+Fira
 fololane
 freespace
 fullnet

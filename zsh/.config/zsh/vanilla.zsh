@@ -23,6 +23,9 @@ alias du='du -ch'
 # Find the 10 most heavy files in a folder
 alias hefi="du -hax --max-depth=1 | sort -rh | head -10"
 
+alias tree='tree -aC -I .git --dirsfirst'
+alias rsync='rsync --verbose --archive --info=progress2 --human-readable --partial'
+
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -150,6 +153,11 @@ mc() {
 hostip() {
     export HOST_IP="$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' | head -n 1)"
     echo $HOST_IP
+}
+
+ldpath() {
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$1
+    echo "add $1 to LD_LIBRARY_PATH"
 }
 
 setpx() {

@@ -30,7 +30,7 @@ $time\
 """
 
 # Disable the blank line at the start of the prompt
-add_newline = true
+add_newline = false
 command_timeout = 1000
 
 # You can also replace your username with a neat symbol like   or disable this
@@ -62,6 +62,14 @@ truncation_symbol = "…/"
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
+"Trash" = " "
+"Desktop" = " "
+"Videos" = " "
+"Templates" = " "
+".config" = ""
+".cache" = " "
+"home" = " "
+"~" = " ~"
 # Keep in mind that the order matters. For example:
 # "Important Documents" = "  "
 # will not be replaced, because "Documents" was already substituted before.

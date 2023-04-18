@@ -41,7 +41,7 @@ zsh_dep:
 .PHONY: zsh
 zsh: stow zsh_dep starship fonts
 	@echo "Initializing zsh"
-	stow zsh
+	@stow zsh
 
 .PHONY: fonts
 fonts: stow
@@ -54,8 +54,8 @@ cmake:
 	git clone https://github.com/Kitware/CMake.git --depth 1
 	@cd cmake
 	@./bootstrap --parallel=`nproc` --prefix=~/.local --qt-gui
-	make -j`nproc`
-	make install
+	@make -j`nproc`
+	@make install
 
 python:
 	@echo "installing python packages"
@@ -103,8 +103,8 @@ docker:
 	&& curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
 	&& curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
-	sudo apt-get update
-	sudo apt-get install -y nvidia-docker2
-	sudo systemctl restart docker
-	sudo docker run --rm --gpus all nvidia/cuda:11.6.2-devel-ubuntu20.04 nvidia-smi
+	@sudo apt-get update
+	@sudo apt-get install -y nvidia-docker2
+	@sudo systemctl restart docker
+	@sudo docker run --rm --gpus all nvidia/cuda:11.6.2-devel-ubuntu20.04 nvidia-smi
 

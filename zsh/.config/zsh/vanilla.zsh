@@ -25,6 +25,7 @@ alias hefi="du -hax --max-depth=1 | sort -rh | head -10"
 
 alias tree='tree -aC -I .git --dirsfirst'
 alias rsync='rsync --verbose --archive --info=progress2 --human-readable --partial'
+alias make='make -j`nproc`'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
@@ -32,31 +33,27 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # docker
-alias d='docker'
-alias dc='docker compose'
-alias dr='docker run --rm'
-alias dcup='docker compose up'
-alias dil='docker image ls'
-alias dcl='docker container ls -a'
-alias drm='docker rm'
-alias drmi='docker rmi'
-da() {
-    docker exec -it $1 /bin/bash
-}
+# alias d='docker'
+# alias dc='docker compose'
+# alias dr='docker run --rm'
+# alias dcup='docker compose up'
+# alias dil='docker image ls'
+# alias dcl='docker container ls -a'
+# alias drm='docker rm'
+# alias drmi='docker rmi'
+# da() {
+#     docker exec -it $1 /bin/bash
+# }
 
 # git
-alias gd='git dif'
-alias ga='git add .'
-alias gc='git commit -m'
-alias g='gitui'
-alias glp='gl -p'
-alias glm='gl -m'
-alias glb='gl -b'
-alias glc='gl -c'
-
-# proxy
-# alias pl='https_proxy=http://127.0.0.1:1080 http_proxy=http://127.0.0.1:1080 all_proxy=socks5://127.0.0.1:1081 '
-# alias pi='https_proxy=http://10.10.43.6:1080 http_proxy=http://10.10.43.6:1080 all_proxy=http://10.10.43.6:1080 '
+# alias gd='git dif'
+# alias ga='git add .'
+# alias gc='git commit -m'
+# alias g='gitui'
+# alias glp='gl -p'
+# alias glm='gl -m'
+# alias glb='gl -b'
+# alias glc='gl -c'
 
 # script
 alias python='python3'
@@ -93,7 +90,6 @@ _enabled_paths=(
     "/usr/local" # for go on macOS
     "/usr/local/bin"
     "/usr/local/sbin"
-
     "/usr/local/cuda/bin" # CUDA: Ubuntu/Debian
     "/opt/cuda/bin"       # CUDA: Arch
 )
@@ -190,32 +186,6 @@ nopx() {
     echo "set proxy to nil"
 }
 
-# new note
-note() {
-    port=$1
-    case $port in
-    l | ls) # ls
-        docker container ls | grep jupyter
-        ;;
-    k | ki | kill) # kill
-        docker container ls | grep $2 | awk '{ print $1 }' | xargs docker container kill
-        ;;
-    *) # new
-        [ -z "$port" ] && port=8888
-        name=$2
-        [ -z "$name" ] && name=$(basename $(dirname $PWD))_$(basename $PWD)
-        docker run \
-            -d --rm \
-            --name "$name" \
-            -p "$port":8888 \
-            -v "$PWD":/home/jovyan \
-            jupyter/scipy-notebook \
-            jupyter-lab --NotebookApp.token= --NotebookApp.password=
-        open "http://127.0.0.1:${port}/lab"
-        ;;
-    esac
-}
-
 extract() {
     if [ -f $1 ]; then
         case $1 in
@@ -238,22 +208,6 @@ extract() {
     fi
 }
 
-# macos only
-dns() {
-    for i in {1..$1}; do
-        sudo killall -HUP mDNSResponder
-    done
-}
-
-vi() {
-    if [[ -n "$TMUX" ]]; then
-        window_name=$(tmux display-message -p '#W')
-        if [[ $window_name == 'zsh' ]]; then
-            tmux rename-window "#{b:pane_current_path}"
-        fi
-    fi
-    nvim "$@"
-}
 
 # --- }}}
 

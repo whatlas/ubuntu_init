@@ -9,6 +9,7 @@ beancount
 bgrdata
 bifpn
 bisenet
+CAFFE
 calib
 Cascadia
 cbrc
@@ -59,6 +60,9 @@ keypoint
 keypoints
 kpts
 laneline
+libnvinfer
+libnvonnxparser
+libnvparsers
 lmdb
 logit
 lstm
@@ -69,13 +73,19 @@ mmcv
 mmseg
 mmsegmentation
 nbytes
+NCHW
 ndarray
+NHWC
 noscale
 Nppi
 nptype
 nsamples
 numpy
+nvcaffeparser
 nvinfer
+nvonnxparser
+nvparsers
+nvuffparser
 onnx
 optim
 pdata

@@ -78,6 +78,7 @@ sys_pack:
 	fontconfig \
 	exfat-fuse \
 	htop \
+	chafa \
 	libssl-dev
 	@sudo apt autoclean
 	@sudo apt autoremove

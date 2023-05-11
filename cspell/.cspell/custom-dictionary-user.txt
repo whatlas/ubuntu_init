@@ -72,6 +72,8 @@ memcpy
 mmcv
 mmseg
 mmsegmentation
+mtcnn
+mwala
 nbytes
 NCHW
 ndarray
@@ -79,6 +81,7 @@ NHWC
 noscale
 Nppi
 nptype
+nrcs
 nsamples
 numpy
 nvcaffeparser
@@ -117,6 +120,7 @@ vconcat
 vidsom
 visdom
 xper
+xproc
 yolo
 yololayer
 yolov

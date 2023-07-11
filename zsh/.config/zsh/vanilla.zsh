@@ -21,7 +21,7 @@ alias l.='ls -d .* --color=auto'
 alias df='df -H'
 
 # Find the 10 most heavy files in a folder
-alias hefi="du -hax --max-depth=1 *| sort -rh | head -13"
+alias hefi="du -hax --max-depth=1 | sort -rh | head -20"
 
 alias tree='tree -aC -I .git --dirsfirst'
 alias rsync='rsync --verbose --archive --info=progress2 --human-readable --partial'

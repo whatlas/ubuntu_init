@@ -49,6 +49,9 @@ zinit light mafredri/zsh-async
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 
+zinit ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"
+zinit light tj/git-extras
+
 # If completion is needed, de-comment lines below.
 # this will add 200ms loading time.
 # zinit ice wait lucid atload"zicompinit"

@@ -64,7 +64,7 @@ alias now='date +%s'
 alias sz="source $HOME/.zshrc"
 
 # VScode
-alias code='code-insiders'
+alias codei='code-insiders'
 
 # do not delete / or prompt if deleting more than 3 files at a time #
 alias rm='rm -I --preserve-root'
@@ -206,6 +206,22 @@ extract() {
     else
         echo "'$1' is not a valid file"
     fi
+}
+
+show_user_usage() {
+
+    stats=””
+    echo "%   user"
+    echo "============"
+
+    # collect the data
+    for user in $(ps aux | grep -v COMMAND | awk '{print $1}' | sort -u); do
+        stats="$stats\n$(ps aux | egrep ^$user | awk 'BEGIN{total=0}; \
+    {total += $4};END{print total,$1}')"
+    done
+
+    # sort data numerically (largest first)
+    echo -e $stats | grep -v ^$ | sort -rn | head
 }
 
 # --- }}}

@@ -111,6 +111,7 @@ SAVEHIST=10000
 
 HISTFILE=$HOME/.zsh_history
 setopt append_history
+setopt magicequalsubst
 setopt autocd
 setopt share_history
 setopt long_list_jobs

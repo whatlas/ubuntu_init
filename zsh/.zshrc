@@ -3,7 +3,7 @@ export ZSH_CONF="$HOME/.config/zsh"
 # import from secret project
 _config_files=(
 	"$ZSH_CONF/vanilla.zsh"
-	"$ZSH_CONF/lscolors.sh"
+	"$ZSH_CONF/lscolors.zsh"
 )
 
 for _config_file in $_config_files[@]; do

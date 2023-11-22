@@ -48,7 +48,8 @@ zinit light jocelynmallon/zshmarks
 zinit light mafredri/zsh-async
 # zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-syntax-highlighting
+# zinit light zsh-users/zsh-syntax-highlighting
+zinit light z-shell/F-Sy-H
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"
 zinit light tj/git-extras
@@ -70,7 +71,7 @@ compinit -C
 
 # ZSH_AUTOSUGGEST
 ZSH_AUTOSUGGEST_USE_ASYNC=1
-ZSH_HIGHLIGHT_STYLES[comment]=fg=245
+# ZSH_HIGHLIGHT_STYLES[comment]=fg=245
 
 # put these 2 lines at the end of plugins settings
 autoload -Uz _zinit

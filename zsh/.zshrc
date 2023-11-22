@@ -13,12 +13,8 @@ done
 
 # starship --- {{{
 export STARSHIP_CONFIG=$HOME/.config/zsh/config.toml
-if [ ! -f "$(which starship)" ]; then
-	echo "Installing starship ..."
-	# setpx
-	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
-fi
-eval "$(starship init zsh)"
+zinit ice from"gh-r" as"command" atload'eval "$(starship init zsh)"'
+zinit load starship/starship
 # --- }}}
 
 # must be end --- {{{

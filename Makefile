@@ -6,7 +6,7 @@ define install_if_not
 	fi
 endef
 
-all: stow cspell starship fonts zsh gitconfig
+all: stow cspell fonts zsh gitconfig
 
 .PHONY: gitconfig
 gitconfig: stow
@@ -24,13 +24,6 @@ stow:
 	@$(call install_if_not, stow)
 	@stow -vt ~ stow
 
-.PHONY: starship
-starship:
-	@echo "Installing starship"
-	@if [ ! -f "`which starship`" ]; then \
-	curl -fsSL https://starship.rs/install.sh | sh; \
-	fi
-
 .PHONY: zsh_dep
 zsh_dep:
 	@echo "Installing my zsh dependencies"
@@ -39,7 +32,7 @@ zsh_dep:
 	@$(call install_if_not, zsh)
 
 .PHONY: zsh
-zsh: stow zsh_dep starship fonts
+zsh: stow zsh_dep fonts
 	@echo "Initializing zsh"
 	@stow zsh
 

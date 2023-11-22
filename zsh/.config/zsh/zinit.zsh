@@ -1,28 +1,10 @@
 
-export ZINIT_PATH="$HOME/.zinit/bin"
-
-
-
 # ==================================================================
 # Install zinit if not exist
 # ==================================================================
-if [ ! -f "$ZINIT_PATH/zinit.zsh" ]; then
-	echo "Installing zinit ..."
-	[ ! -d "$ZINIT_PATH" ] && mkdir -p "$ZINIT" 2> /dev/null
-	if [ -x "$(which git)" ]; then
-		# setpx
-		git clone https://github.com/zdharma-continuum/zinit.git $ZINIT_PATH
-	else
-		echo "ERROR: please install git before installation !!"
-		exit 1
-	fi
-	if [ ! $? -eq 0 ]; then
-		echo ""
-		echo "ERROR: downloading zinit failed !!"
-		exit 1
-	fi;
-	# zplug install
-fi
+export ZINIT_PATH="$HOME/.zinit/bin"
+[ ! -d $ZINIT_PATH ] && mkdir -p "$(dirname $ZINIT_PATH)"
+[ ! -d $ZINIT_PATH/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_PATH"
 
 # ==================================================================
 # source zplug
@@ -35,9 +17,7 @@ source "$ZINIT_PATH/zinit.zsh"
 # ==================================================================
 zinit light jocelynmallon/zshmarks
 zinit light mafredri/zsh-async
-# zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
-# zinit light zsh-users/zsh-syntax-highlighting
 zinit light z-shell/F-Sy-H
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"

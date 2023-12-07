@@ -46,7 +46,7 @@ disabled = false
 # represents the current operating system
 [os]
 style = "bg:#9A348E"
-disabled = true # Disabled by default
+disabled = false # Disabled by default
 
 [directory]
 read_only = " "

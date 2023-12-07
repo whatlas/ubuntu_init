@@ -19,14 +19,11 @@ commit = black bold
 old = red bold
 new = green bold
 whitespace = red reverse
-[fetch]
-prune = true
-pruneTags = true
 [alias]
 st = status
 lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 latest = branch -av --sort=-committerdate
 [log]
-	date = iso
+date = iso
 [credential]
-	helper = store
+helper = store

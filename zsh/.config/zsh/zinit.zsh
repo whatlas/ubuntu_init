@@ -19,6 +19,7 @@ zinit light jocelynmallon/zshmarks
 zinit light mafredri/zsh-async
 zinit light zsh-users/zsh-autosuggestions
 zinit light z-shell/F-Sy-H
+zinit light chrissicool/zsh-256color
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"
 zinit light tj/git-extras

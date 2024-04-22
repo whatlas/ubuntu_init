@@ -58,6 +58,7 @@ alias fgrep='fgrep --color=auto'
 # script
 alias python='python3'
 alias pip='python3 -m pip'
+alias pipi='python3 -m pip install --user'
 
 # others
 alias now='date +%s'

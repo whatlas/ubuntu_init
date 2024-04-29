@@ -14,7 +14,7 @@ gitconfig: stow
 	@stow gitconfig
 
 .PHONY: cspell
-cspell:
+cspell: stow
 	@echo "adding custom cspell dictionary"
 	@stow cspell
 

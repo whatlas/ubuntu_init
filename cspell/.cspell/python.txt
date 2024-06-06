@@ -133,6 +133,7 @@ asinh
 assert
 AssertionError
 ast
+astype
 asynchat
 asyncio
 asyncore
@@ -246,7 +247,6 @@ credits
 crypt
 csv
 ctypes
-curses
 curses
 cycle
 cygwinccompiler

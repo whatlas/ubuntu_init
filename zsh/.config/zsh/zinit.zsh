@@ -26,8 +26,8 @@ zinit light tj/git-extras
 
 # If completion is needed, de-comment lines below.
 # this will add 200ms loading time.
-# zinit ice wait lucid atload"zicompinit"
-# zinit light zsh-users/zsh-completions
+zinit ice wait lucid atload"zicompinit"
+zinit light zsh-users/zsh-completions
 
 # https://medium.com/@dannysmith/little-thing-2-speeding-up-zsh-f1860390f92
 autoload -Uz compinit

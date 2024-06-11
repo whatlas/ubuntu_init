@@ -1,0 +1,36 @@
+#!/bin/zsh
+
+# setpx
+set -e -o pipefail
+
+mkdir -p /tmp/llvm
+
+finally() {
+	local last_status=$?
+	trap "" EXIT
+	echo "cleaning file"
+	rm -fr /tmp/llvm
+	exit ${last_status}
+}
+
+trap finally EXIT
+
+# echo "Installing dependencies"
+# sudo apt install -y build-essential
+echo "Installing LLVM"
+
+script=$(basename ${BASH_SOURCE:-$0})
+usage="FORMAT: ${script} <version>"
+version=${1:?"undefined 'version', $usage"}
+shift
+
+git clone --depth 1 --branch llvmorg-${version} https://github.com/llvm/llvm-project.git /tmp/llvm
+
+cmake -G Ninja -S /tmp/llvm/llvm -B /tmp/llvm/build \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DLLVM_ENABLE_ASSERTIONS=On \
+	-DLLVM_ENABLE_PROJECTS="clang;lld;clang-tools-extra;lldb;polly" \
+	-DCMAKE_INSTALL_PREFIX=~/.llvm/ \
+	-DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi;libunwind'
+
+cmake --build /tmp/llvm/build --target install

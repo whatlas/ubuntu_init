@@ -565,6 +565,7 @@ numbers
 numpy
 object
 oct
+onnxsim
 open
 openapi
 operator
@@ -850,6 +851,7 @@ writelines
 wsgiref
 xdrlib
 xfail
+xlogger
 xml
 xmlreader
 xmlrpc

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <directory> <symbol>"
+    exit 1
+fi
+
+# Directory to search
+search_dir=$1
+# Symbol to search for
+symbol=$2
+
+# Find all .so and .a files in the directory and subdirectories
+find "$search_dir" -type f \( -name "*.so*" -o -name "*.a" \) | while read -r lib; do
+    if nm -D "$lib" 2>/dev/null | grep -q "$symbol"; then
+        echo "Symbol '$2' found in $lib"
+    fi
+done

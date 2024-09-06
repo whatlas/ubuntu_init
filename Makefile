@@ -27,7 +27,6 @@ stow:
 .PHONY: zsh_dep
 zsh_dep:
 	@echo "Installing my zsh dependencies"
-	@$(call install_if_not, fzf)
 	@$(call install_if_not, lua5.3)
 	@$(call install_if_not, zsh)
 

@@ -6,6 +6,7 @@ export ZSH_CONF="$HOME/.config/zsh"
 
 # import from secret project
 _config_files=(
+	"$ZSH_CONF/xdg.zsh"
 	"$ZSH_CONF/vanilla.zsh"
 	"$ZSH_CONF/lscolors.zsh"
 	"$ZSH_CONF/zinit.zsh"

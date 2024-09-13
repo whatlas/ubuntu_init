@@ -110,7 +110,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 HISTSIZE=10000
 SAVEHIST=10000
 
-HISTFILE=$HOME/.zsh_history
 setopt append_history
 setopt magicequalsubst
 setopt autocd

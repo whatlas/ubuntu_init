@@ -32,6 +32,9 @@ zinit light sharkdp/bat
 zinit ice from"gh-r" as"program"
 zinit light junegunn/fzf
 
+zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+zinit light sharkdp/fd
+
 # If completion is needed, de-comment lines below.
 # this will add 200ms loading time.
 # zinit ice wait lucid atload"zicompinit"

@@ -2,7 +2,7 @@
 # ==================================================================
 # Install zinit if not exist
 # ==================================================================
-export ZINIT_PATH="$HOME/.zinit/bin"
+export ZINIT_PATH="$XDG_CONFIG_HOME/.zinit/bin"
 [ ! -d $ZINIT_PATH ] && mkdir -p "$(dirname $ZINIT_PATH)"
 [ ! -d $ZINIT_PATH/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_PATH"
 

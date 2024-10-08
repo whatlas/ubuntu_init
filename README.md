@@ -58,13 +58,6 @@ make sys_pack
 make cmake
 ```
 
-## 安装OpenCV & OpenCV_contrib
-
-```bash
-make zsh
-install_opencv 4.6.0
-```
-
 ## 安装python包
 
 ```bash
@@ -75,24 +68,22 @@ make python
 
 ```bash
 
-make zsh
+make dotfiles
 sudo usermod -s /usr/bin/zsh $(whoami)
 chsh -s /usr/bin/zsh
 init 6
+```
 
+## 安装OpenCV & OpenCV_contrib
+
+```bash
+install_opencv 4.6.0
 ```
 
 ## 安装 VSCode 和 Edge 浏览器
 
 ```bash
 make microsoft
-```
-
-## 安装额外字体
-
-
-```bash
-make fonts
 ```
 
 ## 安装docker及nvidia-docker

@@ -8,10 +8,15 @@ endef
 
 all: dotfiles
 
-.PHONY: dotfiles
-dotfiles:
-	@echo "Initializing dotfiles"
+deps:
+	@echo "Checking dependencies"
+	@$(call install_if_not, lua5.3)
+	@$(call install_if_not, zsh)
 	@$(call install_if_not, stow)
+
+.PHONY: dotfiles
+dotfiles: deps
+	@echo "Initializing dotfiles"
 	@stow -R -v --target=$(HOME) --no-folding dotfiles
 
 cmake:

@@ -1,9 +1,9 @@
 # useful python packages
-conan==1.55.0
-gitup
+conan==1.58.0
+# gitup
 jsonpickle
 jupyter
-marshmallow
+# marshmallow
 netifaces
 notebook
 numpy
@@ -19,3 +19,4 @@ tabulate
 termcolor
 tqdm
 urlpath
+fire

@@ -2,12 +2,11 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
 	zmodload zsh/zprof
 fi
 
-source /etc/profile.d/cntlm.sh
-
 export ZSH_CONF="$HOME/.config/zsh"
 
 # import from secret project
 _config_files=(
+	"/etc/profile.d/cntlm.sh"
 	"$ZSH_CONF/xdg.zsh"
 	"$ZSH_CONF/vanilla.zsh"
 	"$ZSH_CONF/lscolors.zsh"
@@ -33,7 +32,6 @@ _fzf_compgen_dir() {
 	fd --type d --hidden --follow . "$HOME/code"
 }
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 # --- }}
 if [ -n "${ZSH_DEBUGRC+1}" ]; then

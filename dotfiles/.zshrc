@@ -2,6 +2,8 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
 	zmodload zsh/zprof
 fi
 
+source /etc/profile.d/cntlm.sh
+
 export ZSH_CONF="$HOME/.config/zsh"
 
 # import from secret project

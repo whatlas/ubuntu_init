@@ -6,40 +6,13 @@ define install_if_not
 	fi
 endef
 
-all: stow cspell fonts zsh gitconfig
+all: dotfiles
 
-.PHONY: gitconfig
-gitconfig: stow
-	@echo "Initializing gitconfig"
-	@stow gitconfig
-
-.PHONY: cspell
-cspell: stow
-	@echo "adding custom cspell dictionary"
-	@stow cspell
-
-.PHONY: stow
-stow:
-	@echo "Initializing stow"
+.PHONY: dotfiles
+dotfiles:
+	@echo "Initializing dotfiles"
 	@$(call install_if_not, stow)
-	@stow -vt ~ stow
-
-.PHONY: zsh_dep
-zsh_dep:
-	@echo "Installing my zsh dependencies"
-	@$(call install_if_not, lua5.3)
-	@$(call install_if_not, zsh)
-
-.PHONY: zsh
-zsh: stow zsh_dep fonts
-	@echo "Initializing zsh"
-	@stow zsh
-
-.PHONY: fonts
-fonts: stow
-	@echo "Initializing fonts"
-	@stow fonts
-	@fc-cache -vf
+	@stow -R -v --target=$(HOME) --no-folding dotfiles
 
 cmake:
 	@echo "Updating CMake"

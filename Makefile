@@ -2,6 +2,7 @@
 define install_if_not
 	@echo "Checking $(1)"
 	if [ ! -f "`which $(1)`" ]; then \
+	echo "$(1) not found! Installing"; \
 	sudo apt install -y $(1); \
 	fi
 endef

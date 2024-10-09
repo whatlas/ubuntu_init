@@ -31,7 +31,7 @@ export FZF_COMPLETION_TRIGGER='ll'
 _fzf_compgen_dir() {
 	fd --type d --hidden --follow . "$HOME/code"
 }
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $ZSH_CONF/.fzf.zsh ] && source $ZSH_CONF/.fzf.zsh
 
 # --- }}
 if [ -n "${ZSH_DEBUGRC+1}" ]; then

@@ -26,6 +26,6 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 # export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export _ZL_DATA="$XDG_DATA_HOME/zlua"
 
-compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+# compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"

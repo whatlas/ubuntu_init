@@ -19,6 +19,7 @@ deps:
 dotfiles: deps
 	@echo "Initializing dotfiles"
 	@stow -R -v --target=$(HOME) --no-folding dotfiles
+	@fc-cache -f -v
 
 cmake:
 	@echo "Updating CMake"

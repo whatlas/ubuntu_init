@@ -42,13 +42,13 @@ zinit light sharkdp/fd
 
 # https://medium.com/@dannysmith/little-thing-2-speeding-up-zsh-f1860390f92
 autoload -Uz compinit
-if [ "$(find "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION" -mtime 1)" ] ; then
-  compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
-fi
+# if [ "$(find "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION" -mtime 1)" ] ; then
+#   compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+# fi
 # zinit cdreplay
-# for dump in ~/.zcompdump(N.mh+24); do
-#   compinit
-# done
+for dump in "$XDG_CACHE_HOME"/zsh/.zcompdump(N.mh+24); do
+  compinit
+done
 compinit -C
 
 # update zinit, only run update or first install

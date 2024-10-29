@@ -1,0 +1,46 @@
+CompileFlags:
+  Add: [-Werror, -Wunused-variable, -Wno-unknown-warning-option, -Wreturn-type]
+
+InlayHints:
+  Designators: true
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true
+  BlockEnd: true
+  TypeNameLimit: 12
+
+Hover:
+  ShowAKA: true
+
+Index:
+  Background: Build
+  StandardLibrary: No
+
+Completion:
+  AllScopes: true
+
+Diagnostics:
+  UnusedIncludes: Strict
+  # Tweak Clang-Tidy checks.
+  ClangTidy:
+    Add:
+      [
+        bugprone-*,
+        boost-*,
+        google-*,
+        misc-*,
+        modernize-*,
+        performance-*,
+        clang-analyzer-*,
+        clang-diagnostic-*,
+        portability-*,
+        readability-*,
+      ]
+    Remove:
+      [
+        modernize-use-trailing-return-type,
+        google-readability-namespace-comments,
+        misc-non-private-member-variables-in-classes,
+        readability-redundant-access-specifiers,
+        readability-avoid-const-params-in-decls,
+      ]

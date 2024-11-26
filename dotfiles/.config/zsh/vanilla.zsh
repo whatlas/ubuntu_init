@@ -46,6 +46,7 @@ alias fgrep='fgrep --color=auto'
 # }
 
 # git
+alias gst='git status'
 # alias gd='git dif'
 # alias ga='git add .'
 # alias gc='git commit -m'
@@ -62,7 +63,7 @@ alias pipi='python3 -m pip install --user'
 
 # others
 alias now='date +%s'
-alias sz="source $HOME/.zshrc"
+alias sz="source $XDG_CONFIG_HOME/zsh/.zshrc"
 
 # VScode
 alias codei='code-insiders'

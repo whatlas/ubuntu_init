@@ -47,6 +47,7 @@ alias fgrep='fgrep --color=auto'
 
 # git
 alias gst='git status'
+alias gsm='git submodule'
 # alias gd='git dif'
 # alias ga='git add .'
 # alias gc='git commit -m'

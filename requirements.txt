@@ -4,6 +4,7 @@ conan==1.58.0
 jsonpickle
 jupyter
 # marshmallow
+nvitop
 netifaces
 notebook
 numpy

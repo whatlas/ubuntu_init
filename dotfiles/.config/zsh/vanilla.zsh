@@ -8,11 +8,10 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-## Colorize the ls output ##
-# alias ls="ls --color=yes --group-directories-first -hFtr"
+## Colorized ls and platform-specific flags are defined in platform.zsh.
 
 # ## Use a long listing format ##
-# alias ll='ls -lA'
+alias ll='ls -lA'
 
 # ## Show hidden files ##
 # alias l.='ls -d .* --color=auto'
@@ -20,17 +19,20 @@ alias .....='cd ../../../..'
 ## set some other defaults ##
 alias df='df -H'
 
-# Find the 10 most heavy files in a folder
-alias hefi="du -hax --max-depth=1 | sort -rh | head -20"
+# Disk-usage compatibility alias is defined in platform.zsh.
 
-alias tree='tree -aC -I .git --dirsfirst'
-alias rsync='rsync --verbose --archive --info=progress2 --human-readable --partial'
-alias make='make -j`nproc`'
+(( $+commands[tree] )) && alias tree='tree -aC -I .git --dirsfirst'
+alias rsync='rsync --verbose --archive --human-readable --partial'
 
-## Colorize the grep command output for ease of use (good for log files)##
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+## Colorize grep output when supported.
+if print -r -- x | command grep --color=auto -q x 2>/dev/null; then
+    alias grep='grep --color=auto'
+    alias egrep='grep -E --color=auto'
+    alias fgrep='grep -F --color=auto'
+else
+    alias egrep='grep -E'
+    alias fgrep='grep -F'
+fi
 
 # docker
 # alias d='docker'
@@ -57,30 +59,29 @@ alias gsm='git submodule'
 # alias glb='gl -b'
 # alias glc='gl -c'
 
-# script
+# Python
 alias python='python3'
 alias pip='python3 -m pip'
-alias pipi='python3 -m pip install --user'
 
 # others
 alias now='date +%s'
 alias sz="source $XDG_CONFIG_HOME/zsh/.zshrc"
 
-# VScode
-alias codei='code-insiders'
+# VS Code
+if (( $+commands[code-insiders] )); then
+    alias codei='code-insiders'
+elif (( $+commands[code] )); then
+    alias codei='code'
+fi
 
 # do not delete / or prompt if deleting more than 3 files at a time #
-alias rm='rm -I --preserve-root'
 
 # confirmation #
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
 
-# Parenting changing perms on / #
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
+# GNU preserve-root aliases are enabled on Linux in platform.zsh.
 
 # config --- {{{
 
@@ -97,12 +98,12 @@ _enabled_paths=(
     "/opt/cuda/bin"       # CUDA: Arch
 )
 
-for _enabled_path in $_enabled_paths[@]; do
-    # only add to $PATH when path exist and path not in $PATH
-    [[ -d "${_enabled_path}" ]] &&
-        [[ ! :$PATH: == *":${_enabled_path}:"* ]] &&
-        PATH="$PATH:${_enabled_path}"
+for _enabled_path in "${_enabled_paths[@]}"; do
+    # Only add an existing path that is not already present.
+    [[ -d "$_enabled_path" ]] && path+=("$_enabled_path")
 done
+typeset -U path
+unset _enabled_path _enabled_paths
 
 # tab completion ignore case
 # https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
@@ -132,38 +133,71 @@ zstyle ':completion:*' rehash true
 # function --- {{{
 
 cd() {
-    if [[ "$#" != 0 ]]; then
+    if (( $# != 0 )); then
         builtin cd "$@"
         return
     fi
-    local dir="$(printf '%s\n' $(fd --type d --hidden --follow . "$HOME/code" | fzf))"
-    [[ ${#dir} != 0 ]] || return 0
-    builtin cd "$dir" &>/dev/null
+
+    if (( ! $+commands[fd] || ! $+commands[fzf] )); then
+        builtin cd "$HOME"
+        return
+    fi
+
+    local search_root="$HOME/code"
+    [[ -d "$search_root" ]] || search_root="$HOME"
+    local dir
+    dir=$(fd --type d --hidden --follow --exclude .git . "$search_root" | fzf --select-1 --exit-0)
+    [[ -n "$dir" ]] && builtin cd -- "$dir"
 }
 
 rmf() {
-    fd --hidden --follow | fzf | xargs rm -rf
+    if (( ! $+commands[fd] || ! $+commands[fzf] )); then
+        print -u2 "rmf requires fd and fzf"
+        return 1
+    fi
+
+    local selection
+    selection=$(fd --hidden --follow --exclude .git | fzf --multi) || return 0
+    [[ -n "$selection" ]] || return 0
+
+    local -a selected
+    selected=("${(@f)selection}")
+
+    print -r -- "The following paths will be removed:"
+    printf '  %s\n' "${selected[@]}"
+    read -q "REPLY?Continue? [y/N] " || { echo; return 0; }
+    echo
+    rm -rf -- "${selected[@]}"
 }
 
 mc() {
-    mkdir -p -- "$1" && cd -P -- "$1"
+    if (( $# != 1 )); then
+        print -u2 "Usage: mc <directory>"
+        return 2
+    fi
+    mkdir -p -- "$1" && builtin cd -P -- "$1"
 }
 
-hostip() {
-    export HOST_IP="$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}')"
-    echo $HOST_IP
-}
+# hostip is implemented per platform in platform.zsh.
 
 ldpath() {
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$1
-    echo "add $1 to LD_LIBRARY_PATH"
+    if (( $# != 1 )); then
+        print -u2 "Usage: ldpath <directory>"
+        return 2
+    fi
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$1"
+    echo "Added $1 to LD_LIBRARY_PATH"
 }
 
 setpx() {
-    export https_proxy=http://$1
-    export http_proxy=http://$1
-    export all_proxy=socks5://$1
-    echo "set proxy to $1"
+    if (( $# != 1 )); then
+        print -u2 "Usage: setpx <host:port>"
+        return 2
+    fi
+    export https_proxy="http://$1"
+    export http_proxy="http://$1"
+    export all_proxy="socks5://$1"
+    echo "Set proxy to $1"
 }
 
 # px1() {
@@ -183,48 +217,67 @@ setpx() {
 # }
 
 nopx() {
-    export https_proxy=
-    export http_proxy=
-    export all_proxy=
-    echo "set proxy to nil"
+    unset http_proxy https_proxy all_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY
+    echo "Proxy variables cleared"
 }
 
-extract() {
-    if [ -f $1 ]; then
-        case $1 in
-        *.tar.bz2) tar xjf $1 ;;
-        *.tar.gz) tar xzf $1 ;;
-        *.tar.xz) tar xf $1 ;;
-        *.bz2) bunzip2 $1 ;;
-        *.rar) unrar e $1 ;;
-        *.gz) gunzip $1 ;;
-        *.tar) tar xf $1 ;;
-        *.tbz2) tar xjf $1 ;;
-        *.tgz) tar xzf $1 ;;
-        *.zip) unzip $1 ;;
-        *.Z) uncompress $1 ;;
-        *.7z) 7z x $1 ;;
-        *) echo "'$1' cannot be extracted via extract()" ;;
-        esac
+last100_line_of_log() {
+    if (( $# != 1 )); then
+        print -u2 "Usage: last100_line_of_log <log_file_url>"
+        return 2
+    fi
+    if (( ! $+commands[curl] )); then
+        print -u2 "last100_line_of_log requires curl"
+        return 1
+    fi
+
+    local log_file="$1"
+    local accept_ranges
+    accept_ranges=$(command curl --fail --silent --show-error --head "$log_file" |
+        command grep -i '^Accept-Ranges:[[:space:]]*bytes' || true)
+
+    if [[ -n "$accept_ranges" ]]; then
+        echo "Fetching the final 64 KiB and showing its last 100 lines..."
+        command curl --fail --silent --show-error --range -65536 "$log_file" | tail -n 100
     else
-        echo "'$1' is not a valid file"
+        echo "WARNING: The server did not advertise byte-range support." >&2
+        echo "Fetching the complete response." >&2
+        command curl --fail --silent --show-error "$log_file" | tail -n 100
     fi
 }
 
+
+extract() {
+    if (( $# != 1 )); then
+        print -u2 "Usage: extract <archive>"
+        return 2
+    fi
+    if [[ ! -f "$1" ]]; then
+        print -u2 "'$1' is not a valid file"
+        return 1
+    fi
+
+    case "$1" in
+        *.tar.bz2|*.tbz2) tar xjf "$1" ;;
+        *.tar.gz|*.tgz) tar xzf "$1" ;;
+        *.tar.xz|*.tar) tar xf "$1" ;;
+        *.bz2) bunzip2 "$1" ;;
+        *.rar) unrar e "$1" ;;
+        *.gz) gunzip "$1" ;;
+        *.zip) unzip "$1" ;;
+        *.Z) uncompress "$1" ;;
+        *.7z) 7z x "$1" ;;
+        *) print -u2 "'$1' cannot be extracted via extract()"; return 1 ;;
+    esac
+}
+
 show_user_usage() {
-
-    stats=””
-    echo "%   user"
-    echo "============"
-
-    # collect the data
-    for user in $(ps aux | grep -v COMMAND | awk '{print $1}' | sort -u); do
-        stats="$stats\n$(ps aux | egrep ^$user | awk 'BEGIN{total=0}; \
-    {total += $4};END{print total,$1}')"
-    done
-
-    # sort data numerically (largest first)
-    echo -e $stats | grep -v ^$ | sort -rn | head
+    echo "%MEM user"
+    echo "=========="
+    ps -axo user=,%mem= |
+        awk '{usage[$1] += $2} END {for (user in usage) printf "%.1f %s\n", usage[user], user}' |
+        sort -rn |
+        head
 }
 
 # --- }}}

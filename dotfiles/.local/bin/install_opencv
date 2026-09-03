@@ -1,37 +1,50 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
-# setpx
-set -e -o pipefail
+set -euo pipefail
 
-mkdir -p /tmp/opencv
+if [[ "$(uname -s)" != Linux ]]; then
+    print -u2 "install_opencv is Linux-only. On macOS run: brew install opencv"
+    exit 1
+fi
 
-finally() {
-	local last_status=$?
-	trap "" EXIT
-	echo "cleaning file"
-	rm -fr /tmp/opencv
-	exit ${last_status}
+if (( $# != 1 )); then
+    print -u2 "Usage: ${0:t} <version>"
+    exit 2
+fi
+
+version="$1"
+workdir=$(mktemp -d "${TMPDIR:-/tmp}/opencv.XXXXXX")
+
+cleanup() {
+    local rc=$?
+    trap - EXIT INT TERM
+    rm -rf -- "$workdir"
+    exit "$rc"
 }
+trap cleanup EXIT INT TERM
 
-trap finally EXIT
+echo "Installing OpenCV build dependencies"
+sudo apt update
+sudo apt install -y \
+    build-essential cmake unzip wget pkg-config libavcodec-dev libavformat-dev \
+    libavutil-dev libswscale-dev libeigen3-dev libgtk-3-dev libvtk9-dev
 
-echo "Installing dependencies"
-sudo apt install -y build-essential qt5-default zlib1g-dev \
-	pkg-config libavcodec-dev libavformat-dev libavutil-dev \
-	libswscale-dev libavresample-dev libdc1394-22-dev \
-	libeigen3-dev libgtk-3-dev libvtk7-qt-dev
+echo "Downloading OpenCV ${version}"
+wget -O "$workdir/opencv.zip" "https://github.com/opencv/opencv/archive/${version}.zip"
+wget -O "$workdir/opencv_contrib.zip" "https://github.com/opencv/opencv_contrib/archive/${version}.zip"
+unzip -q -d "$workdir" "$workdir/opencv.zip"
+unzip -q -d "$workdir" "$workdir/opencv_contrib.zip"
 
-echo "Installing OpenCV"
-
-script=$(basename ${BASH_SOURCE:-$0})
-usage="FORMAT: ${script} <version>"
-version=${1:?"undefined 'version', $usage"}
-shift
-
-wget -O /tmp/opencv/opencv.zip https://github.com/opencv/opencv/archive/${version}.zip
-wget -O /tmp/opencv/opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/${version}.zip
-
-unzip -d /tmp/opencv /tmp/opencv/opencv.zip
-unzip -d /tmp/opencv /tmp/opencv/opencv_contrib.zip
-cmake -S /tmp/opencv/opencv-${version} -B /tmp/opencv/opencv-${version}/build -DBUILD_JAVA=OFF -DBUILD_WEBP=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.opencv/ -DENABLE_CXX11=ON -DOPENCV_ENABLE_NONFREE=ON -DOPENCV_EXTRA_MODULES_PATH=/tmp/opencv/opencv_contrib-${version}/modules/ -DWITH_CUDA=ON
-cmake --build /tmp/opencv/opencv-${version}/build --target install -j$(nproc)
+jobs=$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)
+cmake \
+    -S "$workdir/opencv-${version}" \
+    -B "$workdir/opencv-${version}/build" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX="$HOME/.opencv" \
+    -DBUILD_JAVA=OFF \
+    -DBUILD_WEBP=OFF \
+    -DENABLE_CXX11=ON \
+    -DOPENCV_ENABLE_NONFREE=ON \
+    -DOPENCV_EXTRA_MODULES_PATH="$workdir/opencv_contrib-${version}/modules" \
+    -DWITH_CUDA=ON
+cmake --build "$workdir/opencv-${version}/build" --target install --parallel "$jobs"

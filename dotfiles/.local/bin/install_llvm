@@ -1,37 +1,48 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
-# setpx
-set -e -o pipefail
+set -euo pipefail
 
-mkdir -p /tmp/llvm
+if [[ "$(uname -s)" != Linux ]]; then
+    print -u2 "install_llvm is Linux-only. On macOS run: brew install llvm"
+    exit 1
+fi
 
-finally() {
-	local last_status=$?
-	trap "" EXIT
-	echo "cleaning file"
-	rm -fr /tmp/llvm
-	exit ${last_status}
+if (( $# != 1 )); then
+    print -u2 "Usage: ${0:t} <version>"
+    exit 2
+fi
+
+for command in git cmake ninja; do
+    if ! command -v "$command" >/dev/null 2>&1; then
+        print -u2 "Missing required command: $command"
+        exit 1
+    fi
+done
+
+version="$1"
+workdir=$(mktemp -d "${TMPDIR:-/tmp}/llvm.XXXXXX")
+
+cleanup() {
+    local rc=$?
+    trap - EXIT INT TERM
+    rm -rf -- "$workdir"
+    exit "$rc"
 }
+trap cleanup EXIT INT TERM
 
-trap finally EXIT
+echo "Downloading LLVM ${version}"
+git clone --depth 1 --branch "llvmorg-${version}" \
+    https://github.com/llvm/llvm-project.git "$workdir/llvm-project"
 
-# echo "Installing dependencies"
-# sudo apt install -y build-essential
-echo "Installing LLVM"
-
-script=$(basename ${BASH_SOURCE:-$0})
-usage="FORMAT: ${script} <version>"
-version=${1:?"undefined 'version', $usage"}
-shift
-
-git clone --depth 1 --branch llvmorg-${version} https://github.com/llvm/llvm-project.git /tmp/llvm
-
-cmake -G Ninja -S /tmp/llvm/llvm -B /tmp/llvm/build \
-	-DLLVM_ENABLE_PROJECTS="clang;lld;clang-tools-extra;lldb;polly;compiler-rt" \
-	-DCMAKE_INSTALL_PREFIX=~/.llvm/ \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DLIBCXX_ENABLE_STD_MODULES=ON \
-	-DLLVM_ENABLE_ASSERTIONS=On \
-	-DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi;libunwind'
-
-cmake --build /tmp/llvm/build --target install
+jobs=$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)
+cmake \
+    -G Ninja \
+    -S "$workdir/llvm-project/llvm" \
+    -B "$workdir/build" \
+    -DLLVM_ENABLE_PROJECTS="clang;lld;clang-tools-extra;lldb;polly;compiler-rt" \
+    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" \
+    -DCMAKE_INSTALL_PREFIX="$HOME/.llvm" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIBCXX_ENABLE_STD_MODULES=ON \
+    -DLLVM_ENABLE_ASSERTIONS=ON
+cmake --build "$workdir/build" --target install --parallel "$jobs"

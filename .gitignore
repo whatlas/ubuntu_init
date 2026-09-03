@@ -1,0 +1,11 @@
+.DS_Store
+**/.DS_Store
+.venv/
+.tmp-*-venv/
+__pycache__/
+*.py[cod]
+
+# Legacy duplicate of dotfiles/.local/share/fonts/. Keep fonts in the Stow tree.
+/fonts/
+
+.npm-cache/

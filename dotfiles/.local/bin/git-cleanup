@@ -1,44 +1,49 @@
 #!/usr/bin/env bash
 
-# Removes old Git branches and does other cleanup
-#
-# Usage:
-#   git-cleanup [--force]
-#
-# See explanation here: http://erikaybar.name/git-deleting-old-local-branches/
-#
-# Author: Artem Sapegin, sapegin.me
-# License: MIT
-# https://github.com/sapegin/dotfiles
+# Removes local branches whose upstream branch no longer exists.
+set -euo pipefail
 
-# Exit on any failed command
-set -e
+CYAN="$(tput setaf 6 2>/dev/null || true)"
+UNDERLINE="$(tput smul 2>/dev/null || true)"
+NOCOLOR="$(tput sgr0 2>/dev/null || true)"
 
-CYAN="$(tput setaf 6)"
-UNDERLINE="$(tput sgr 0 1)"
-NOCOLOR="$(tput sgr0)"
-
-function header() { echo -e "\n$UNDERLINE$CYAN$1$NOCOLOR\n"; }
-
-function branches() {
-    git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}'
+header() {
+    printf '\n%s%s%s\n\n' "$UNDERLINE" "$CYAN" "$1$NOCOLOR"
 }
 
-if [[ "$1" != "--force" ]]; then
-    branches
+branches() {
+    git for-each-ref \
+        --format='%(refname:short) %(upstream:track)' \
+        refs/heads/ |
+        awk '$NF == "[gone]" { print $1 }'
+}
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "git-cleanup must run inside a Git work tree." >&2
     exit 1
 fi
 
-# Delete all unreachable objects from the object database
-header "Deleting unreachable objects..."
-git prune
+if [[ "${1:-}" != "--force" ]]; then
+    stale=$(branches)
+    if [[ -n "$stale" ]]; then
+        echo "$stale"
+        echo "Re-run with --force to delete these branches." >&2
+    else
+        echo "No local branches have a missing upstream."
+    fi
+    exit 0
+fi
 
-# Delete all stale remote-tracking branches, these branches have already been
-# removed from the remote repository, but are still locally available in "remotes/".
-header "Deleting stale remote-tracking branches..."
-git remote prune origin
-echo "Done."
+header "Pruning stale remote-tracking branches..."
+git fetch --prune --all
 
-# Delete branches for which remote branches were removed
-header "Deleting branches with no longer existing remote branches..."
-branches | xargs git branch -D
+stale=$(branches)
+if [[ -z "$stale" ]]; then
+    echo "No stale local branches found."
+    exit 0
+fi
+
+header "Deleting local branches with missing upstreams..."
+while IFS= read -r branch; do
+    [[ -n "$branch" ]] && git branch -D -- "$branch"
+done <<< "$stale"
